@@ -6,20 +6,42 @@
 function makeCalculator() {
   const calculator = {
     result: 0,
-    add: (num) => (calculator.result += num),
-    subtract: (num) => (calculator.result -= num),
-    multiply: (num) => (calculator.result *= num),
-    divide: (num) =>
-      num !== 0 ? (calculator.result /= num) : 'Error: Division by zero',
+    add(num) {
+      this.result += num;
+
+      return this;
+    },
+
+    subtract(num) {
+      this.result -= num;
+
+      return this;
+    },
+
+    multiply(num) {
+      this.result *= num;
+
+      return this;
+    },
+
+    divide(num) {
+      if (num !== 0) {
+        this.result /= num;
+      } else {
+        return 'Error: Division by zero';
+      }
+
+      return this;
+    },
 
     operate(callback, num) {
-      calculator.result = callback(num);
+      callback.call(this, num);
 
       return this;
     },
 
     reset() {
-      calculator.result = 0;
+      this.result = 0;
 
       return this;
     },
